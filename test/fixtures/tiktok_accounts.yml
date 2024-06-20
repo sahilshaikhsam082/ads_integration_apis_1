@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  tiktok_user_id: MyString
+  tiktok_access_token: MyString
+
+two:
+  user: two
+  tiktok_user_id: MyString
+  tiktok_access_token: MyString

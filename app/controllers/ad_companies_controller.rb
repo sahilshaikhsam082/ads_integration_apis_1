@@ -16,7 +16,7 @@ class AdCompaniesController < ApplicationController
     when 'facebook'
       connect_to_facebook
     when 'tiktok'
-      connect_to_tiktok
+      redirect_to tiktok_auth_path and return
     else
       render json: { error: 'Unknown company' }, status: :bad_request and return
     end
@@ -25,6 +25,11 @@ class AdCompaniesController < ApplicationController
   end
 
   private
+
+  def fetch_tiktok_ad_accounts
+    @tiktok_account = current_user.tiktok_accounts.find(params[:id])
+    @ad_accounts = @tiktok_account.fetch_ad_accounts
+  end
 
   def connect_to_google
     # Example logic to connect to Google Ads API
@@ -39,10 +44,5 @@ class AdCompaniesController < ApplicationController
   def connect_to_facebook
     # Example logic to connect to Facebook Ads API
     # Make an API request to Facebook Ads and handle the response
-  end
-
-  def connect_to_tiktok
-    # Example logic to connect to TikTok API
-    # Make an API request to TikTok and handle the response
   end
 end

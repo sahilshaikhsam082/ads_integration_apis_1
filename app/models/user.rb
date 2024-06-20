@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates :first_name, :last_name, :company_name, :company_url, presence: true
-       
+   has_many :tiktok_accounts, dependent: :destroy     
 end

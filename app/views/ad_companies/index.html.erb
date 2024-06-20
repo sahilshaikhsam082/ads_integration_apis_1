@@ -4,27 +4,32 @@
   <% ['google', 'shopify', 'facebook', 'tiktok'].each do |company| %>
     <div class="company-item">
       <span><%= company.capitalize %></span>
-      <button class="connect-button" data-company="<%= company %>">Connect</button>
+      <% if company == 'tiktok' %>
+        <%= link_to 'Connect', tiktok_auth_path, class: 'connect-button' %>
+      <% else %>
+        <button class="connect-button" data-company="<%= company %>">Connect</button>
+      <% end %>
     </div>
   <% end %>
 </div>
 
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.connect-button').forEach(button => {
+    document.querySelectorAll('.fetch-data-button').forEach(button => {
       button.addEventListener('click', () => {
-        const company = button.dataset.company;
-        fetch('/ad_companies/connect', {
-          method: 'POST',
+        const accountId = button.dataset.accountId;
+        fetch(`/tiktok_accounts/${accountId}/fetch_ad_accounts`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          },
-          body: JSON.stringify({ company: company })
+          }
         })
         .then(response => response.json())
         .then(data => {
-          alert(data.message);
+          console.log(data); // Handle the data
+          alert('Data fetched. Check the console for details.');
         })
         .catch(error => {
           console.error('Error:', error);

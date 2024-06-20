@@ -7,6 +7,16 @@ Rails.application.routes.draw do
     collection do
       post :connect
     end
+    member do
+      get :fetch_tiktok_ad_accounts
+    end
+  end
+  get 'tiktok/auth', to: 'tiktok#auth'
+  get 'tiktok/callback', to: 'tiktok#callback'
+  resources :tiktok_accounts, only: [] do
+    member do
+      get :fetch_ad_accounts
+    end
   end
 end
 

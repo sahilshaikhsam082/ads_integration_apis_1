@@ -1,0 +1,35 @@
+<!-- app/views/ad_companies/index.html.erb -->
+<h1>Connect to Ad Companies</h1>
+<div id="ad-companies-list">
+  <% ['google', 'shopify', 'facebook', 'tiktok'].each do |company| %>
+    <div class="company-item">
+      <span><%= company.capitalize %></span>
+      <button class="connect-button" data-company="<%= company %>">Connect</button>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.connect-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const company = button.dataset.company;
+        fetch('/ad_companies/connect', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({ company: company })
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    });
+  });
+</script>

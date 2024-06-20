@@ -18,5 +18,7 @@ Rails.application.routes.draw do
       get :fetch_ad_accounts
     end
   end
+  get 'facebook/auth', to: 'facebook#auth'
+  get 'facebook/callback', to: 'facebook#callback'
 end
 

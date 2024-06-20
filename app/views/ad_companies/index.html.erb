@@ -6,6 +6,8 @@
       <span><%= company.capitalize %></span>
       <% if company == 'tiktok' %>
         <%= link_to 'Connect', tiktok_auth_path, class: 'connect-button' %>
+      <% elsif company == 'facebook' %>
+         <%= link_to 'Connect', '/facebook/auth', class: 'connect-button' %>
       <% else %>
         <button class="connect-button" data-company="<%= company %>">Connect</button>
       <% end %>
